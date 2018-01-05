@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <meta charset="utf-8"></meta>
+    <link href="jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
+    <style>
+        #container {
+            max-width: 700px;
+            height: 500px;
+            margin: 0 auto;
+            justify-content: center;
+            border: 3px solid black;
+            display: flex;
+        }
+
+        #rouge {
+            background-color: red;
+            max-height: 50%;
+            flex: 0.5;
+        }
+
+        #sortable li {
+            border: 3px solid indianred;
+            background-color: lightblue;
+            height: 50px;
+            list-style-type: tibetan;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="rouge">
+        </div>
+    </div>
+    <p>
+        Position du carré: haut
+        <span id="top"></span> px , gauche
+        <span id="left"></span> px
+    </p>
+    <hr/>
+    <button id="sortList">Ordre de la liste</button>
+    <div>
+        <p id="listOrder">
+        </p>
+    </div>
+    <ul id="sortable">
+        <li data-number="1">test</li>
+        <li data-number="2">test 2</li>
+        <li data-number="3">test 3</li>
+        <li data-number="4">test 4</li>
+    </ul>
+</body>
+
+<script src="jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+<script src="jquery-ui-1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        //Carré draggable
+        $("#rouge").draggable();
+        $("#rouge").draggable({
+            containment: "#container",
+            scroll: false,
+            drag: function (event, ui) {
+                const { top, left } = ui.offset;
+                $('#top').text(top);
+                $('#left').text(left);
+            }
+        });
+
+        //Liste triable
+        $("#sortable").sortable();
+        $("#sortable").disableSelection();
+
+        //tri de la liste
+        $('#sortList').on('click', (e) => {
+            let text = ''
+            $('#sortable li').each(function (item) {
+                var liNumber = $(this).data('number');
+                text += 'n°' + liNumber + ' ';
+            });
+            $('#listOrder').text(text);
+        });
+    });
+</script>
+
+</html>

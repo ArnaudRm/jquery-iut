@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>Titre de la page</title>
+    <meta name="description" content="Description de la page">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.5/sweetalert2.min.css">
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.5/sweetalert2.min.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(function(){
+
+
+        $('form').submit(function(e){
+          e.preventDefault();
+          $('#degage').remove();
+          var type = $('#type').val();
+          var contenu = $('#contenu').val();
+          //Cree un element de type 'type'
+          var elementToCreate;
+          switch (type) {
+            case 'h1':
+              elementToCreate = $('<h1></h1>').text(contenu);
+              break;
+            case 'h2':
+              elementToCreate = $('<h2></h2>').text(contenu);
+                break;
+            case 'h3':
+              elementToCreate = $('<h3></h3>').text(contenu);
+              break;
+            case 'p':
+              elementToCreate = $('<p></p>').text(contenu);
+              break;
+            case 'img':
+              elementToCreate = $('<img>').attr('src',contenu);
+              break;
+            case 'a':
+              elementToCreate = $('<a></a>').attr('href',contenu);
+              break;
+            case 'input:text':
+              elementToCreate = $('<input type="text"/>').attr('placeholder',contenu);
+              break;
+            case 'input:submit':
+              elementToCreate = $('<input type="submit"/>').attr('value',contenu);
+              break;
+            case 'label':
+              elementToCreate = $('<label></label>').text(contenu);
+              break;
+            default:
+              break;
+          }
+          if($('#ajoutAvant').is(':checked')){
+            $('#recipient').prepend(elementToCreate);
+          }else{
+            $('#recipient').append(elementToCreate);
+          }
+        });
+
+        //Gestion bouton générer
+        $('#generateBtn').click(function(){
+          var contentHtml = $('#recipient').html();
+          var p  = $('<p></p>').text(contentHtml);
+          $('#modal').append(p);
+          $('#modal').addClass('on');
+        });
+
+        //Gestion bouton reinitialiser
+        $('#resetBtn').click(function(){
+          var superTexte = $("<span id='degage'>La page est vide pour l'instant...</span>");
+          $('#recipient').html("");
+          $('#recipient').append(superTexte);
+        })
+
+    	});
+   	</script>
+</head>
+<body>
+	<div id="generateur">
+		<form action="#">
+			<label for="type">Type d'élément</label>
+			<br />
+			<select name="type" id="type">
+				<option value="h1">Titre (h1)</option>
+				<option value="h2">Titre (h2)</option>
+				<option value="h3">Titre (h3)</option>
+				<option value="p">Paragraphe (p)</option>
+				<option value="img">Image (img)</option>
+				<option value="a">Lien (a))</option>
+				<option value="input:text">Champ de texte (input:text)</option>
+				<option value="input:submit">Bouton (input:submit)</option>
+				<option value="label">Label (label)</option>
+			</select>
+			<br />
+			<label for="contenu">Contenu de l'élément</label><br />
+			<input type="text" placeholder="Contenu" id="contenu" name="contenu" />
+			<br />
+			<label for="ajoutAvant">Ajouter avant</label>
+			<input type="checkbox" name="ajoutAvant" id="ajoutAvant" />
+			<br />
+			<input type="submit" value="Ajouter" />
+			<input type="button" id="resetBtn" value="Réinitialiser" />
+			<input type="button" id="generateBtn" value="Générer" />
+		</form>
+	</div>
+  <div id="modal">
+  </div>
+	<div id="recipient">
+    <span id="degage">
+		La page est vide pour l'instant...
+  </span>
+
+	</div>
+
+
+
+
+	<!-- Style -->
+	<style>
+		body{
+			font-family: 'Quicksand', sans-serif;
+			background-color: #FCFCFC;
+		}
+
+		#generateur{
+			float: right;
+			border: 1px solid #C1C2CC;
+			padding: 15px;
+			border-radius: 3px;
+			background: #F1F1F1;
+		}
+
+		#generateur label{ font-weight: bold;}
+		#generateur select{ margin-bottom: 10px; width: 200px; border: 1px solid #666; }
+		#generateur input[type=text]{ margin-bottom: 10px; width: 188px; border: 1px solid #666; padding: 5px; border-radius: 3px;}
+		#generateur input[type=checkbox]{ margin-bottom: 10px; }
+
+		#generateur input[type=submit]{ background-color: #83D833; }
+		#generateur input[type=button]{ background-color: #E80612; }
+		#generateur input[type=button]:last-child{ background-color: #FCC325; }
+		#generateur input[type=submit],
+		#generateur input[type=button]{ color: white; border-radius: 3px; border: none; padding: 9px;}
+		#generateur input[type=submit]:hover,
+		#generateur input[type=button]:hover{ opacity: 0.7; cursor: pointer;}
+
+		#recipient{
+			margin-right: 250px;
+			padding: 15px;
+			border-radius: 3px;
+			border: 1px solid #C1C2CC;
+		}
+
+    #modal{
+      display:none;
+    }
+
+    #modal.on{
+      display:flex;
+      position:fixed;
+      justify-content: center;
+      align-items: center;
+      top:0;bottom:0;left:0;right:0;
+      z-index: 9999;
+      border-radius:5px;
+      background:rgba(0,0,0,0.5);
+    }
+
+    #modal > p {
+      padding:5rem;
+      background-color: white;
+    }
+
+
+	</style>
+</body>
+
+</html>

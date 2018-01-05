@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <meta charset="utf-8"></meta>
+    <link href="jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
+    <style>
+        #test {
+            height: 500px;
+            width: 500px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="test">
+        <p>coucou gautier</p>
+    </div>
+</body>
+
+<script src="jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+<script src="jquery-ui-1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $('#test').makeTextBigger().makeTextBigger().makeTextBigger();
+    });
+    
+    (function ($) {
+        $.fn.makeTextBigger = function () {
+            let actualFontSize;
+            this.each(function () {
+                $(this).on('mouseover', function () {
+                    actualFontSize = parseInt($(this).css('font-size'));
+                    $(this).css('font-size', `${actualFontSize + 2}px`);
+                });
+            });
+            return this;
+        };
+    })(jQuery);
+</script>
+
+</html>

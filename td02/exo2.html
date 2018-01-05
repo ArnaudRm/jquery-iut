@@ -1,0 +1,84 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>Kit de Survie JS</title>
+    <meta name="description" content="">
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+
+    <style>
+    	body{ font-family: 'Quicksand', sans-serif; }
+      .spinner {
+        width: 40px;
+        height: 40px;
+        background-color: #333;
+
+        margin: 100px auto;
+        -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+        animation: sk-rotateplane 1.2s infinite ease-in-out;
+      }
+
+      @-webkit-keyframes sk-rotateplane {
+        0% { -webkit-transform: perspective(120px) }
+        50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+        100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+      }
+
+      @keyframes sk-rotateplane {
+        0% {
+          transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+          -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+        } 50% {
+          transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+          -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+        } 100% {
+          transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+          -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        }
+      }
+
+	</style>
+
+    <script src="jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(function(){
+          //ex2
+
+          $('button:first-of-type').click(() => {
+            $('body').prepend('<p class="spinner"></p>');
+            //loader.show();
+            $('div#c1').load('http://www.labri.fr/perso/pbiasutt/KDJS/TD02/exo1.php #conteneur1' , () => {
+              $('p.spinner').remove();
+            });
+          })
+          $('button:last-of-type').click(() =>{
+            $('body').prepend('<p class="spinner"></p>');
+            //loader.show();
+            $('div#c2').load('http://www.labri.fr/perso/pbiasutt/KDJS/TD02/exo1.php #conteneur2', () => {
+              $('p.spinner').remove();
+            });;
+          })
+
+      });
+   	</script>
+</head>
+<body>
+	<!-- Code HTML -->
+  <button type="button" name="button">test</button>
+  <button type="button" name="button">test2</button>
+  <div id="c1">
+
+  </div>
+  <div id="c2">
+
+  </div>
+</body>
+
+</html>

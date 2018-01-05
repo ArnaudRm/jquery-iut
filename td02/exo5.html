@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<head>
+<html>
+    <meta charset="utf-8" />
+
+    <title>Kit de Survie JS</title>
+    <meta name="description" content="">
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+
+    <style>
+    	body{ font-family: 'Quicksand', sans-serif; }
+
+
+	</style>
+
+    <script src="jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(() => {
+        $('form').submit(() => {
+          const type = $('select option:selected').val();
+          let queryString;
+          let val = $('input').val();
+
+          switch (type) {
+            case 'nom':
+              queryString = {'nom':val}
+              break;
+            case 'cp':
+              queryString = {'codePostal':val}
+              break;
+            case 'cd':
+              queryString = {'codeDepartemental':val}
+              break;
+            default:
+          };
+
+          $.getJSON({
+              url: 'https://geo.api.gouv.fr/communes',
+              data:queryString,
+              complete:function(data){
+                let newUl = $('<ul></ul>');
+                let results = data.responseJSON;
+
+                for(let i in results){
+                  let res = results[i];
+                  let li = ($('<li></li>'));
+                  li.append($(`<p></p>`).text(res.nom));
+                  li.append($(`<p></p>`).text(res.population));
+                  li.append($(`<p></p>`).text(res.codeDepartement));
+                  li.append($(`<p></p>`).text(res.codesPostaux[0]));
+                  
+                  newUl.append(li);
+                }
+                $('body').append(newUl);
+              },
+          });
+          return false;
+        });
+    	});
+   	</script>
+</head>
+<body>
+	<!-- Code HTML -->
+<form method="post">
+  <select class="" name="type">
+    <option value="nom">Nom</option>
+    <option value="cp">Code postal</option>
+    <option value="cd">Code département</option>
+  </select>
+  <input type="text" name="text" value="">
+  <input type="submit" name="button"></button>
+</form>
+</body>
+
+</html>

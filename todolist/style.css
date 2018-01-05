@@ -1,0 +1,73 @@
+
+body{
+  margin:0;
+  font-family: 'Roboto';
+  background-color: #EBEBEB;
+}
+
+h1 {
+  text-align: center;
+}
+header > div{
+  justify-content: center;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding:64px 0;
+  max-width: 512px;
+  margin: 32px auto;
+  border:2px solid lightgrey;
+  border-radius: 8px;
+  background: white;
+}
+
+#todos{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+#todos > div {
+  min-width: 256px;
+}
+
+.todo-li{
+  font-size:32px;
+  padding:16px;
+  margin:32px 0;
+  font-weight:500;
+}
+.done-li{
+  margin:25px 0;
+  padding:8px;
+  margin:16px 0;
+  font-weight:400;
+}
+.todo-li,.done-li{
+  background: #fff;
+  border:2px solid lightgrey;
+  border-radius: 5px;
+}
+
+.delete-btn,.done-btn{
+  max-width:20px;
+  margin-left:40px;
+  cursor: pointer;
+}
+
+.done-li{
+  text-decoration:line-through;
+  color:darkgrey;
+  font-style: italic;
+}
+
+#done-container{
+  padding:0;
+  list-style-type: none;
+}
+
+.material-icons.md-red { color: rgb(255,64,129)}
+

@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <meta charset="utf-8"></meta>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+
+<body>
+    <div ng-app="app01" ng-controller="controlleur01">
+        <input type="text" name="nombre1" ng-model="nombre1" />
+        <input type="text" name="nombre2" ng-model="nombre2" />
+        <select ng-model="operator">
+            <option value="plus">+</option>
+            <option value="minus">-</option>
+            <option value="times">*</option>
+            <option value="divide">/</option>
+        </select>
+        <p>Le resultat de {{nombre1}} {{operator}} {{nombre2}} est {{calc(nombre1,nombre2,operator)}}</p>
+    </div>
+</body>
+<script>
+    var app = angular.module("app01", []);
+
+    app.controller("controlleur01", function ($scope) {
+        $scope.operator = 'plus';
+        $scope.nombre1 = 1;
+        $scope.nombre2 = 1;
+        $scope.calc = function (nb1, nb2, operator) {
+            var result;
+            nb1 = parseInt(nb1);
+            nb2 = parseInt(nb2);
+            switch (operator) {
+                case 'plus':
+                    result = nb1 + nb2;
+                    break;
+                case 'minus':
+                    result = nb1 - nb2;
+                    break;
+                case 'times':
+                    result = nb1 * nb2;
+                    break;
+                case 'divide':
+                    result = nb1 / nb2;
+                    break;
+            }
+            return result;
+        }
+    });
+</script>
+
+</html>
